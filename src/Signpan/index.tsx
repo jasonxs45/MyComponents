@@ -110,7 +110,7 @@ export default class SignPan extends React.PureComponent<SignPanProps> {
     const { current } = this.ref;
     this.dom = current
     if (container && this.dom) {
-      const containerRect = container.getBoundingClientRect();
+      const containerRect = this.dom.getBoundingClientRect();
       this.dom.width = containerRect.width
       this.dom.height = containerRect.height
       this.rect = this.dom.getBoundingClientRect();
