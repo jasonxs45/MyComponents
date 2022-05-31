@@ -8,12 +8,13 @@ if [ -e docker_build_log.txt ]; then
 else
     n=0
 fi
-
-tag="xscomponents:v"$time"_"$n
+basename="xscomponents"
+tag="v"$time"_"$n
+filename=$basename.$tag
 
 echo "Docker build start"
 
-docker build -t $tag .
+docker build -t $basename:$tag .
 
 echo "Docker build finish"
 
@@ -27,7 +28,7 @@ if [ $? -eq 0 ]; then
     cat docker_build_log.txt
 
 #   保存镜像到本地
-    docker save -o $tag.tar $tag
+    docker save -o $filename.tar $basename:$tag
 
 else
     echo 'failed'
