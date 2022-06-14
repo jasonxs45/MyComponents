@@ -1,0 +1,229 @@
+:root {
+  --progressBar-percent: 0%;
+  --footerBg: rgba(51, 51, 51, 0.8);
+  --fontColor: #fff;
+}
+
+.outerContainer {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  background: var(--footerBg);
+  .viewerContainer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 50px;
+    bottom: calc(50px + constant(safe-area-inset-bottom));
+    bottom: calc(50px + env(safe-area-inset-bottom));
+    left: 0;
+    box-sizing: inherit;
+    width: 100%;
+    overflow: auto;
+  }
+}
+
+footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  bottom: constant(safe-area-inset-bottom);
+  bottom: env(safe-area-inset-bottom);
+  left: 0;
+  z-index: 1;
+  box-sizing: content-box;
+  height: 50px;
+  background: var(--footerBg);
+  box-shadow: 0 -0.2rem 0.5rem rgba(50, 50, 50, 0.75);
+}
+
+.toolbarButton {
+  display: block;
+  margin: 0;
+  padding: 0;
+  background-color: rgba(0, 0, 0, 0);
+  background-repeat: no-repeat;
+  background-position: center center;
+  border-width: 0;
+}
+
+.pageUp:extend(.toolbarButton) {
+  position: absolute;
+  left: 0;
+  width: 18%;
+  height: 100%;
+  background-image: url(images/icon_previous_page.png);
+  background-size: auto 36%;
+}
+
+.pageDown:extend(.toolbarButton) {
+  position: absolute;
+  left: 18%;
+  width: 18%;
+  height: 100%;
+  background-image: url(images/icon_next_page.png);
+  background-size: auto 36%;
+}
+
+.pageNumber {
+  position: absolute;
+  left: 36%;
+  width: 28%;
+  height: 100%;
+  color: var(--fontColor);
+  font-size: 14px;
+  line-height: 50px;
+  text-align: center;
+  background-image: url(images/div_line_left.png), url(images/div_line_right.png);
+  background-repeat: no-repeat;
+  background-position: left, right;
+  background-size: 0.2rem, 0.2rem;
+  -moz-appearance: textfield; /* hides the spinner in moz */
+}
+
+.zoomOut:extend(.toolbarButton) {
+  position: absolute;
+  left: 64%;
+  width: 18%;
+  height: 100%;
+  background-image: url(images/icon_zoom_out.png);
+  background-size: auto 38%;
+}
+
+.zoomIn:extend(.toolbarButton) {
+  position: absolute;
+  left: 82%;
+  width: 18%;
+  height: 100%;
+  background-image: url(images/icon_zoom_in.png);
+  background-size: auto 38%;
+}
+
+.toolbarButton[disabled] {
+  opacity: 0.3;
+}
+
+.hidden {
+  display: none;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+canvas {
+  display: block;
+  margin: auto;
+}
+
+.pdfViewer .page .loadingIcon {
+  position: absolute;
+  top: calc((100% - 2.9rem) / 2);
+  left: calc((100% - 2.9rem) / 2);
+  display: block;
+  width: 2.9rem;
+  height: 2.9rem;
+  background: url('images/spinner.png') no-repeat left top / 38rem;
+  border: medium none;
+  animation: 1s steps(10, end) 0s normal none infinite moveDefault;
+}
+
+@keyframes moveDefault {
+  from {
+    background-position: 0 top;
+  }
+
+  to {
+    background-position: -39rem top;
+  }
+}
+
+#loadingBar {
+  position: relative;
+  height: 2px;
+  background-color: #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+#loadingBar .progress {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #20c064;
+  transform: scaleX(var(--progressBar-percent));
+  transform-origin: 0 0;
+  transition: transform 200ms;
+}
+
+@keyframes progressIndeterminate {
+  0% {
+    transform: translateX(0%);
+  }
+
+  50% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+#loadingBar .progress.indeterminate {
+  background-color: rgba(153, 153, 153, 1);
+  transform: none;
+  transition: none;
+}
+
+#loadingBar .indeterminate .glimmer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5rem;
+  height: 100%;
+  background-image: linear-gradient(
+    to right,
+    rgba(153, 153, 153, 1) 0%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(153, 153, 153, 1) 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  animation: progressIndeterminate 2s linear infinite;
+}
+
+.errorWrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 0.3rem;
+  color: rgba(255, 255, 255, 1);
+  font-size: 0.8em;
+  background: none repeat scroll 0 0 rgba(255, 85, 85, 1);
+  .clearBoth {
+    display: block;
+    clear: both;
+    width: 0;
+    height: 0;
+  }
+}
+
+.errorMessageLeft {
+  float: left;
+}
+
+.errorMessageRight {
+  float: right;
+}
+
+.errorMoreInfo {
+  width: 100%;
+  padding: 0.3rem;
+  color: rgba(0, 0, 0, 1);
+  background-color: rgba(255, 255, 255, 1);
+}
