@@ -1,6 +1,6 @@
 {
-  "private": true,
-  "name": "XsComponents",
+  "private": false,
+  "name": "xs-components",
   "version": "1.0.0",
   "scripts": {
     "start": "dumi dev",
@@ -37,6 +37,7 @@
     "@testing-library/jest-dom": "^5.15.1",
     "@testing-library/react": "^12.1.2",
     "@types/jest": "^27.0.3",
+    "@types/node": "^17.0.42",
     "@umijs/fabric": "^2.8.1",
     "@umijs/test": "^3.0.5",
     "cross-env": "^7.0.3",
@@ -47,5 +48,9 @@
     "lint-staged": "^10.0.7",
     "prettier": "^2.2.1",
     "yorkie": "^2.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jasonxs45/MyComponents.git"
   }
 }
