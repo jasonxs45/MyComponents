@@ -402,12 +402,12 @@ export default class PDFviewer extends React.PureComponent<PDFViewerProps> {
   };
 
   componentDidMount() {
-    const { url, theme } = this.props;
-    if (theme === 'light') {
-      const root = document.documentElement;
-      root.style.setProperty('--footerBg', 'rgba(255, 255, 255, .1)');
-      root.style.setProperty('--fontColor', 'rgba(51, 51, 51, 1)');
-    }
+    const { url } = this.props;
+    // if (theme === 'light') {
+    //   const root = document.documentElement;
+    //   root.style.setProperty('--footerBg', 'rgba(255, 255, 255, .1)');
+    //   root.style.setProperty('--fontColor', 'rgba(51, 51, 51, 1)');
+    // }
     if (this.container.current) {
       this.initUI(this.container.current);
       const animationStarted = new Promise((resolve) => {
