@@ -7,4 +7,4 @@ group:
 
 <code src="../../docs/.demos/pdfviewer/index.tsx" />
 
-<API />
+<API hideTitle />

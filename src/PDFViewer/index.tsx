@@ -5,13 +5,16 @@ const pdfjsLib = require('pdfjs-dist');
 import * as pdfjsViewer from 'pdfjs-dist/legacy/web/pdf_viewer';
 import 'pdfjs-dist/legacy/web/pdf_viewer.css';
 
-import './index.less';
+import style from './index.less';
 interface PDFViewerProps {
   /**
    * pdf地址
    */
   url: string;
-  className: string | string[];
+  /**
+   * 主题色dark light
+   */
+  // theme?: string;
 }
 
 const VERSION = '2.14.305';
@@ -29,7 +32,11 @@ const DEFAULT_SCALE_VALUE = 'auto';
 pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${VERSION}/build/pdf.worker.min.js`;
 
 export default class PDFviewer extends React.PureComponent<PDFViewerProps> {
-  [x: string]: IL10n;
+  static defaultProps: PDFViewerProps = {
+    // theme: 'dark',
+    url: '',
+  };
+
   state = {
     pageNumber: 1,
     pagesCount: 1,
@@ -38,12 +45,12 @@ export default class PDFviewer extends React.PureComponent<PDFViewerProps> {
     errorMoreInfoValue: '',
     errorWrapperHidden: true,
     moreInfoButtonHidden: false,
-    lessInfoButtonHidden: false,
+    lessInfoButtonHidden: true,
     errorMoreInfoHidden: true,
   };
 
   container: RefObject<HTMLDivElement> = createRef();
-  errorMoreInfoRef: RefObject<HTMLTextAreaElement> = createRef();
+  errorMoreInfoRef: RefObject<HTMLDivElement> = createRef();
   pdfLoadingTask: any = null;
   pdfDocument: any = null;
   pdfViewer: any = null;
@@ -52,6 +59,7 @@ export default class PDFviewer extends React.PureComponent<PDFViewerProps> {
   eventBus: any = null;
   documentInfo: any = null;
   metadata: any = null;
+  l10n: any;
 
   get loadingBar() {
     const bar = new pdfjsViewer.ProgressBar('#loadingBar');
@@ -357,16 +365,11 @@ export default class PDFviewer extends React.PureComponent<PDFViewerProps> {
     this.pdfViewer.currentScaleValue = newScale;
   };
 
-  onPrevious = () => {
-    this.page--;
-  };
-
   onMoreClick = () => {
     this.setState({
       errorMoreInfoHidden: false,
       moreInfoButtonHidden: true,
       lessInfoButtonHidden: false,
-      errorMoreInfoHeight: this.errorMoreInfoRef.current!.scrollHeight + 'px',
     });
   };
 
@@ -384,18 +387,8 @@ export default class PDFviewer extends React.PureComponent<PDFViewerProps> {
     });
   };
 
-  onPageNumberChange = () => {
-    this.page = this.value | 0;
-    // Ensure that the page number input displays the correct value,
-    // even if the value entered by the user was invalid
-    // (e.g. a floating point number).
-    if (this.value !== this.page.toString()) {
-      this.value = this.page;
-    }
-  };
-
-  onPageNumberClick = () => {
-    this.select();
+  onPageNumberClick = (e: Event) => {
+    (e.currentTarget as HTMLInputElement).select();
   };
 
   onPrevious = () => {
@@ -409,7 +402,12 @@ export default class PDFviewer extends React.PureComponent<PDFViewerProps> {
   };
 
   componentDidMount() {
-    const { url, className } = this.props;
+    const { url, theme } = this.props;
+    if (theme === 'light') {
+      const root = document.documentElement;
+      root.style.setProperty('--footerBg', 'rgba(255, 255, 255, .1)');
+      root.style.setProperty('--fontColor', 'rgba(51, 51, 51, 1)');
+    }
     if (this.container.current) {
       this.initUI(this.container.current);
       const animationStarted = new Promise((resolve) => {
@@ -426,11 +424,10 @@ export default class PDFviewer extends React.PureComponent<PDFViewerProps> {
   }
 
   render() {
-    const { url, className } = this.props;
     const {
       errorWrapperHidden,
-      title,
       errorMoreInfoValue,
+      errorMoreInfoHidden,
       moreInfoButtonHidden,
       lessInfoButtonHidden,
       errorMessage,
@@ -438,73 +435,62 @@ export default class PDFviewer extends React.PureComponent<PDFViewerProps> {
       pagesCount,
     } = this.state;
     return (
-      <div id="outerContainer">
-        <div id="viewerContainer" ref={this.container}>
+      <div className={style.outerContainer}>
+        <div ref={this.container} className={style.viewerContainer}>
           <div id="viewer" className="pdfViewer"></div>
         </div>
 
-        <div id="loadingBar">
+        <div id="loadingBar" className={style.loadingBar}>
           <div className="progress"></div>
           <div className="glimmer"></div>
         </div>
 
-        <div id="errorWrapper" hidden={errorWrapperHidden}>
-          <div id="errorMessageLeft">
-            <span id="errorMessage">{errorMessage}</span>
-            <button id="errorShowMore" hidden={moreInfoButtonHidden} onClick={this.onMoreClick}>
-              More Information
+        <div className={style.errorWrapper} hidden={errorWrapperHidden}>
+          <div className={style.errorMessageLeft}>
+            <span>{errorMessage}</span>
+            <button hidden={moreInfoButtonHidden} onClick={this.onMoreClick}>
+              更多信息
             </button>
-            <button id="errorShowLess" hidden={lessInfoButtonHidden} onClick={this.onLessClick}>
-              Less Information
+            <button hidden={lessInfoButtonHidden} onClick={this.onLessClick}>
+              简要信息
             </button>
           </div>
-          <div id="errorMessageRight">
+          <div className={style.errorMessageRight}>
             <button id="errorClose" onClick={this.onCloseClick}>
-              Close
+              关闭
             </button>
           </div>
-          <div className="clearBoth"></div>
-          <textarea
+          <div className={style.clearBoth} />
+          <div
             ref={this.errorMoreInfoRef}
-            id="errorMoreInfo"
-            hidden={true}
-            readOnly
-            value={errorMoreInfoValue}
-          />
+            className={style.errorMoreInfo}
+            hidden={errorMoreInfoHidden}
+          >
+            {errorMoreInfoValue}
+          </div>
         </div>
 
         <footer>
           <button
-            className="toolbarButton pageUp"
+            className={style.pageUp}
             disabled={pageNumber < 1}
             title="Previous Page"
             id="previous"
             onClick={this.onPrevious}
           ></button>
           <button
-            className="toolbarButton pageDown"
+            className={style.pageDown}
             disabled={pageNumber >= pagesCount}
             title="Next Page"
             id="next"
             onClick={this.onNext}
           ></button>
 
-          <input
-            type="number"
-            id="pageNumber"
-            className="toolbarField pageNumber"
-            value={pageNumber}
-            size={4}
-            min={1}
-            onClick={this.onPageNumberClick}
-            onChange={this.onPageNumberChange}
-          />
-          <button
-            className="toolbarButton zoomOut"
-            title="Zoom Out"
-            onClick={this.zoomOut}
-          ></button>
-          <button className="toolbarButton zoomIn" title="Zoom In" onClick={this.zoomIn}></button>
+          <div className={style.pageNumber}>
+            {pageNumber}/{pagesCount}
+          </div>
+          <button className={style.zoomOut} onClick={this.zoomOut}></button>
+          <button className={style.zoomIn} onClick={this.zoomIn}></button>
         </footer>
       </div>
     );
