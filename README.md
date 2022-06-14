@@ -1,33 +1,5 @@
-# dumi
+# 使用 DUMI 框架开发的自用组件
 
-## Getting Started
+## 在线文档地址
 
-Install dependencies,
-
-```bash
-$ npm i
-```
-
-Start the dev server,
-
-```bash
-$ npm start
-```
-
-Build documentation,
-
-```bash
-$ npm run docs:build
-```
-
-Run test,
-
-```bash
-$ npm test
-```
-
-Build library via `father-build`,
-
-```bash
-$ npm run build
-```
+https://jasonxs45.github.io/MyComponents/
