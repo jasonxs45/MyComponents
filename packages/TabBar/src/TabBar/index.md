@@ -4,7 +4,8 @@ group:
   title: Tabbar底部导航
   order: 1
 ---
-<code src="../../docs/.demos/tabbar/index.tsx" />
+
+<code src="../../../../docs/.demos/tabbar/index.tsx" />
 
 ### Tabbar
 

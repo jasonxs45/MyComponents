@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { SignPan } from 'xs-components';
+import SignPan from '@xscomponents/signpan';
+import React, { useRef, useState } from 'react';
 import '../assets/style/index.css';
 export default () => {
   const pan1 = useRef(null);

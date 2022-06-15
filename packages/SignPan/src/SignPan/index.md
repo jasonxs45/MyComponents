@@ -5,7 +5,7 @@ group:
   order: 2
 ---
 
-<code src="../../docs/.demos/signpan/index.tsx" />
+<code src="../../../../docs/.demos/signpan/index.tsx" />
 
 ### 属性
 

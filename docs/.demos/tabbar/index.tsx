@@ -1,5 +1,5 @@
+import TabBar from '@xscomponents/tabbar';
 import React, { useState } from 'react';
-import { TabBar } from 'xs-components';
 import '../assets/iconfont/iconfont.css';
 const list = [
   {
