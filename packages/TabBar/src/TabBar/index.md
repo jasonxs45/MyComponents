@@ -7,6 +7,18 @@ group:
 
 <code src="../../../../docs/.demos/tabbar/index.tsx" />
 
+#### 安装
+
+```bash
+    npm i @xscomponents/signpan
+```
+
+or
+
+```bash
+    yarn add @xscomponents/signpan
+```
+
 ### Tabbar
 
 <API hideTitle exports='["default"]' />

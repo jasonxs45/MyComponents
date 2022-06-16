@@ -7,6 +7,19 @@
 /yarn.lock
 /package-lock.json
 
+# father
+/coverage
+/packages/*/lib
+/packages/*/es
+/packages/*/node_modules
+/packages/*/.local
+/.local
+/packages/*/src/fixtures/**/node_modules/.cache
+/packages/umi-plugin-father-doc/src/fixtures/build/*/dist
+/packages/father-doc/src/fixtures/e2e/normal/.doc
+/packages/father-doc/src/fixtures/e2e/normal/.docz
+/.changelog
+
 # production
 /es
 /docs-dist
