@@ -78,6 +78,10 @@ export default class PDFviewer extends React.PureComponent<PDFViewerProps> {
     this.pdfViewer.currentPageNumber = val || 1;
   }
 
+  onResize = () => {
+    this.pdfViewer.currentScaleValue = DEFAULT_SCALE_VALUE;
+  };
+
   initUI = (container: HTMLDivElement) => {
     const eventBus = new pdfjsViewer.EventBus();
     this.eventBus = eventBus;
@@ -105,10 +109,9 @@ export default class PDFviewer extends React.PureComponent<PDFViewerProps> {
     });
     linkService.setHistory(this.pdfHistory);
 
-    eventBus.on('pagesinit', () => {
-      // We can use pdfViewer now, e.g. let's change default scale.
-      pdfViewer.currentScaleValue = DEFAULT_SCALE_VALUE;
-    });
+    eventBus.on('pagesinit', this.onResize);
+
+    window.addEventListener('resize', this.onResize, false);
 
     eventBus.on(
       'pagechanging',
@@ -421,6 +424,10 @@ export default class PDFviewer extends React.PureComponent<PDFViewerProps> {
         });
       });
     }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize);
   }
 
   render() {

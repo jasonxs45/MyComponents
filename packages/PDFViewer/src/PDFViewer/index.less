@@ -139,23 +139,48 @@ canvas {
   }
 }
 
-#loadingBar {
+.loadingBar {
   position: relative;
-  height: 2px;
+  height: 4px;
   background-color: #ccc;
   border-bottom: 1px solid #ccc;
-}
-
-#loadingBar .progress {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background-color: #20c064;
-  transform: scaleX(var(--progressBar-percent));
-  transform-origin: 0 0;
-  transition: transform 200ms;
+  &:global(.hidden) {
+    display: none;
+  }
+  :global {
+    .progress {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #47abfc;
+      transform: scaleX(var(--progressBar-percent));
+      transform-origin: 0 0;
+      transition: transform 200ms;
+      &.indeterminate {
+        background-color: rgba(153, 153, 153, 1);
+        transform: none;
+        transition: none;
+        .glimmer {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 5rem;
+          height: 100%;
+          background-image: linear-gradient(
+            to right,
+            rgba(153, 153, 153, 1) 0%,
+            rgba(255, 255, 255, 1) 50%,
+            rgba(153, 153, 153, 1) 100%
+          );
+          background-repeat: no-repeat;
+          background-size: 100% 100%;
+          animation: progressIndeterminate 2s linear infinite;
+        }
+      }
+    }
+  }
 }
 
 @keyframes progressIndeterminate {
@@ -170,29 +195,6 @@ canvas {
   100% {
     transform: translateX(100%);
   }
-}
-
-#loadingBar .progress.indeterminate {
-  background-color: rgba(153, 153, 153, 1);
-  transform: none;
-  transition: none;
-}
-
-#loadingBar .indeterminate .glimmer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 5rem;
-  height: 100%;
-  background-image: linear-gradient(
-    to right,
-    rgba(153, 153, 153, 1) 0%,
-    rgba(255, 255, 255, 1) 50%,
-    rgba(153, 153, 153, 1) 100%
-  );
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  animation: progressIndeterminate 2s linear infinite;
 }
 
 .errorWrapper {
