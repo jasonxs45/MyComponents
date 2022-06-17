@@ -5,12 +5,16 @@ const pdfjsLib = require('pdfjs-dist');
 import * as pdfjsViewer from 'pdfjs-dist/legacy/web/pdf_viewer';
 import 'pdfjs-dist/legacy/web/pdf_viewer.css';
 
-import style from './index.less';
+import './index.less';
 interface PDFViewerProps {
   /**
    * pdf地址
    */
   url: string;
+  /**
+   * class名
+   */
+  className?: string;
   /**
    * 主题色dark light
    */
@@ -386,7 +390,7 @@ export default class PDFviewer extends React.PureComponent<PDFViewerProps> {
 
   onCloseClick = () => {
     this.setState({
-      errorWrapperHidden: false,
+      errorWrapperHidden: true,
     });
   };
 
@@ -442,18 +446,18 @@ export default class PDFviewer extends React.PureComponent<PDFViewerProps> {
       pagesCount,
     } = this.state;
     return (
-      <div className={style.outerContainer}>
-        <div ref={this.container} className={style.viewerContainer}>
+      <div className="outerContainer">
+        <div ref={this.container} className="viewerContainer">
           <div id="viewer" className="pdfViewer"></div>
         </div>
 
-        <div id="loadingBar" className={style.loadingBar}>
+        <div id="loadingBar" className="loadingBar">
           <div className="progress"></div>
           <div className="glimmer"></div>
         </div>
 
-        <div className={style.errorWrapper} hidden={errorWrapperHidden}>
-          <div className={style.errorMessageLeft}>
+        <div className="errorWrapper" hidden={errorWrapperHidden}>
+          <div className="errorMessageLeft">
             <span>{errorMessage}</span>
             <button hidden={moreInfoButtonHidden} onClick={this.onMoreClick}>
               更多信息
@@ -462,42 +466,38 @@ export default class PDFviewer extends React.PureComponent<PDFViewerProps> {
               简要信息
             </button>
           </div>
-          <div className={style.errorMessageRight}>
+          <div className="errorMessageRight">
             <button id="errorClose" onClick={this.onCloseClick}>
               关闭
             </button>
           </div>
-          <div className={style.clearBoth} />
-          <div
-            ref={this.errorMoreInfoRef}
-            className={style.errorMoreInfo}
-            hidden={errorMoreInfoHidden}
-          >
+          <div className="clearBoth" />
+          <div ref={this.errorMoreInfoRef} className="errorMoreInfo" hidden={errorMoreInfoHidden}>
             {errorMoreInfoValue}
           </div>
         </div>
 
         <footer>
           <button
-            className={style.pageUp}
+            className="pageUp"
             disabled={pageNumber < 1}
             title="Previous Page"
             id="previous"
             onClick={this.onPrevious}
           ></button>
           <button
-            className={style.pageDown}
+            className="pageDown"
             disabled={pageNumber >= pagesCount}
             title="Next Page"
             id="next"
             onClick={this.onNext}
           ></button>
 
-          <div className={style.pageNumber}>
+          <div className="pageNumber">
             {pageNumber}/{pagesCount}
           </div>
-          <button className={style.zoomOut} onClick={this.zoomOut}></button>
-          <button className={style.zoomIn} onClick={this.zoomIn}></button>
+          <button className="zoomOut" onClick={this.zoomOut}></button>
+          <button className="zoomIn" onClick={this.zoomIn}></button>
         </footer>
       </div>
     );

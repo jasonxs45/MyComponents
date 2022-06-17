@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './index.less';
+import './index.less';
 interface SignPanProps {
   /**
    * class名
@@ -173,10 +173,10 @@ export default class SignPan extends React.PureComponent<SignPanProps> {
     return (
       <div
         ref={this.containerRef}
-        className={[styles.signPanWrapper, className].join(' ')}
+        className={['signPanWrapper', className].join(' ')}
         style={style}
       >
-        <canvas className={styles.canvas} ref={this.ref} />
+        <canvas className="canvas" ref={this.ref} />
       </div>
     );
   }

@@ -1,10 +1,14 @@
 import React, { ReactNode } from 'react';
-import style from './index.less';
+import './index.less';
 interface TabBarProps {
   /**
    * 设置导航栏背景色
    */
   backgroundColor?: string;
+  /**
+   * class名
+   */
+  className?: string;
   /**
    * 设置层级
    */
@@ -67,12 +71,12 @@ export default class Tabbar extends React.Component<TabBarProps> {
 
   renderBadge = (badge: any) => {
     let res = null;
-    const dot = <span className={[style.tabbarItemBadge, 'dot'].join(' ')} />;
+    const dot = <span className="tabbar-item-badge dot" />;
     if (typeof badge === 'boolean') {
       res = badge ? dot : null;
     }
     if (typeof badge === 'string') {
-      res = badge.trim() === '' ? dot : <span className={style.tabbarItemBadge}>{badge}</span>;
+      res = badge.trim() === '' ? dot : <span className="tabbar-item-badge">{badge}</span>;
     }
     return res;
   };
@@ -85,29 +89,29 @@ export default class Tabbar extends React.Component<TabBarProps> {
 
   render() {
     const { active } = this.state;
-    const { backgroundColor, zIndex, list } = this.props;
+    const { backgroundColor, zIndex, list, className } = this.props;
     return (
-      <div className={style.tabbar} style={{ backgroundColor, zIndex }}>
+      <div className={['tabbar', className].join(' ')} style={{ backgroundColor, zIndex }}>
         {list.map((item, index) => (
           <div
             key={item.text}
-            className={[style.tabbarItem, active === index ? 'active' : ''].join(' ')}
+            className={['tabbar-item', active === index ? 'active' : ''].join(' ')}
             onClick={() => this.clickHandler(index)}
           >
-            <div className={style.tabbarItemWrapper}>
-              <div className={style.tabbarItemIcon}>
+            <div className="tabbar-item-wrapper">
+              <div className="tabbar-item-icon">
                 {item.customIcon ? (
                   item.customIcon
                 ) : (
                   <img
-                    className={style.tabbarItemIconImg}
+                    className="tabbar-item-icon-img"
                     src={active === index ? item.selectedIconPath : item.iconPath}
                   />
                 )}
               </div>
               {this.renderBadge(item.badge)}
             </div>
-            <p className={style.tabbarItemText}>{item.text}</p>
+            <p className="tabbar-item-text">{item.text}</p>
           </div>
         ))}
       </div>
