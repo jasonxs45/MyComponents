@@ -9,6 +9,7 @@
 
 # father
 /coverage
+/packages/*/dist
 /packages/*/lib
 /packages/*/es
 /packages/*/node_modules

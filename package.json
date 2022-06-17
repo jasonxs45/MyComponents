@@ -1,15 +1,14 @@
 {
   "private": true,
-  "name": "xscomponents",
   "workspaces": [
     "packages/*"
   ],
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "initialize": "rm -rf node_modules && npm install && npm run clean && npm run bootstrap",
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean --yes",
-    "publish": "lerna publish",
+    "lpublish": "lerna publish",
     "start": "dumi dev",
     "docs:build": "dumi build",
     "docs:deploy": "gh-pages -d docs-dist",
