@@ -21,6 +21,9 @@
 /packages/father-doc/src/fixtures/e2e/normal/.docz
 /.changelog
 
+# lerna
+lerna-debug.log
+
 # production
 /es
 /docs-dist
