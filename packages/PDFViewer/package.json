@@ -1,6 +1,6 @@
 {
   "name": "@xscomponents/pdfviewer",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "pdf预览",
   "main": "lib/index.js",
   "module": "es/index.js",
