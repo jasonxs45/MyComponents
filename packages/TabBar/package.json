@@ -1,7 +1,7 @@
 {
   "name": "@xscomponents/tabbar",
   "version": "0.0.2",
-  "description": "",
+  "description": "底部导航",
   "main": "lib/index.js",
   "module": "es/index.js",
   "types": "es/index.d.ts",
