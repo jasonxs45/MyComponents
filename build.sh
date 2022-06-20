@@ -16,26 +16,25 @@ echo "Docker build start"
 
 docker build -t $basename:$tag .
 
-echo "Docker build finish"
 
 if [ $? -eq 0 ]; then
-    echo 'success'
-    let n++
-    echo "==================================" >>docker_build_log.txt
-    echo "build time "$time >>docker_build_log.txt
-    echo $tag >>docker_build_log.txt
-    echo "build times: "$n >>docker_build_log.txt
-    cat docker_build_log.txt
+    echo "Docker build finish"
 
-#   保存镜像到本地
+    #   保存镜像到本地
     docker save -o $filename.tar $basename:$tag
+    echo 'success'
+    echo "==================================" >>docker_build_log.txt
+    echo "result: SUCCESS" >>docker_build_log.txt
 
 else
     echo 'failed'
-    let n++
     echo "==================================" >>docker_build_log.txt
-    echo "build time "$time >>docker_build_log.txt
-    echo $tag >>docker_build_log.txt
-    echo "build times: "$n >>docker_build_log.txt
-    cat docker_build_log.txt
+    echo "result: FAILED" >>docker_build_log.txt
 fi
+
+let n++
+
+echo "build time "$time >>docker_build_log.txt
+echo $tag >>docker_build_log.txt
+echo "build times: "$n >>docker_build_log.txt
+cat docker_build_log.txt

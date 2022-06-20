@@ -1,7 +1,7 @@
 FROM node:14.18.2-alpine as build-stage
 WORKDIR /app
 COPY package*.json ./
-RUN npm install --registry=https://registry.npm.taobao.org
+RUN npm run initialize
 COPY ./ .
 RUN npm run docs:build
 
