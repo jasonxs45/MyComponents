@@ -1,4 +1,6 @@
 /node_modules
 /dist
 /docs-dist
-/xscomponents:**
+/xscomponents:v**
+.umi
+.umi-production

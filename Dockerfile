@@ -1,8 +1,7 @@
 FROM node:14.18.2-alpine as build-stage
+COPY ./ /app
 WORKDIR /app
-COPY package*.json ./
 RUN npm run initialize
-COPY ./ .
 RUN npm run docs:build
 
 FROM nginx:1.18.0-alpine as production-stage

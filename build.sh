@@ -1,4 +1,5 @@
 #!/bin/sh
+SECONDS=0
 timestamp=$(date "+%Y%m%d%H%M%s")
 time=$(date "+%Y-%m-%d")
 
@@ -31,10 +32,11 @@ else
     echo "==================================" >>docker_build_log.txt
     echo "result: FAILED" >>docker_build_log.txt
 fi
-
+duration=$SECONDS
+echo "$(($duration / 60)) 分 and $(($duration % 60)) 秒"
 let n++
-
 echo "build time "$time >>docker_build_log.txt
+echo "耗时$(($duration / 60)) 分 $(($duration % 60)) 秒" >>docker_build_log.txt
 echo $tag >>docker_build_log.txt
 echo "build times: "$n >>docker_build_log.txt
-cat docker_build_log.txt
+# cat docker_build_log.txt

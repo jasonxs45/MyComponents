@@ -7,9 +7,7 @@
       "ignoreChanges": ["ignored-file", "*.md"],
       "message": "chore(release): publish"
     },
-    "bootstrap": {
-      "ignore": "component-*"
-    }
+    "bootstrap": {}
   },
   "useNx": false,
   "version": "independent"
