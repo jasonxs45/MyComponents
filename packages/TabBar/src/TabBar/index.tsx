@@ -22,7 +22,7 @@ interface TabBarProps {
    */
   list: TabbarItem[];
   /**
-   * 监听current改变触发的方法
+   * 监听current改变
    */
   onChange?: (value: number) => void;
 }
