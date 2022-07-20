@@ -10,7 +10,7 @@ export default () => {
   return (
     <>
       <SignPan
-        style={{ width: '100%', height: '200px', border: '1px solid #ccc' }}
+        style={{ width: '100%', height: '200px', border: '1px solid #ddd' }}
         strokeStyle="red"
         lineWidth={10}
         ref={pan1}
